@@ -4,31 +4,31 @@
 caution
 
 ## Summary
-The price increase risks alienating the price-sensitive customer segment, potentially eroding the current market share. The wholesale expansion offers a path to build a new channel moat but requires careful management of capacity and supply chain stability. Long-term positioning depends on successfully balancing premium pricing with access to new, stable demand streams.
+The proposed decision involves a price increase and a new wholesale contract. The price increase tests demand elasticity across existing segments. The wholesale contract targets new market penetration but requires careful management of cannibalization risk. Long-term competitive positioning depends on successfully leveraging the wholesale relationship to build a moat against competitors.
 
 ## Key findings
-- The price increase directly challenges the position of the price-sensitive customer segment (35% share).
-- The current structure suggests a reliance on volume for revenue ($85,000 monthly revenue).
-- Signing a wholesale contract introduces a B2B channel, which can serve as a competitive moat if supply is stable.
-- Current capacity is 2500 units, and the new demand adds approximately 2800 loaves/month.
+- The price increase of 18% tests customer sensitivity.
+- The net new revenue from the new line is $4,400.
+- The wholesale contract targets the 'new wholesale chain' segment.
+- The existing demand forecast is 16800 loaves.
 
 ## Numbers
-- Monthly Revenue: $85000 (business_context)
-- Unit Cost: 1.5 (business_context)
-- Loyal customer share: 0.5 (customers)
-- Price-sensitive customer share: 0.35 (customers)
-- Main Supplier spend share: 0.65 (suppliers)
-- Current capacity: 2500 (operations)
-- New demand: 2800 (decision under test)
+- Net new revenue after cannibalization: 4400.0 (cannibalization_estimate)
+- Existing line revenue: 92000 (business_context)
+- New line revenue: 32000 (growth)
+- Base monthly revenue: 92000 (revenue)
+- Demand forecast: 16800 (operations)
 
 ## Risks
-- The price increase may cause significant loss of market share from the price-sensitive segment due to high price sensitivity (0.65).
-- Increased wholesale demand (2800 loaves/month) strains current operational capacity (2500 units).
-- If the new wholesale channel is not managed efficiently, it could introduce supply chain risks that undermine the existing retail moat.
+- The price increase may negatively impact the loyal retail segment.
+- Cannibalization suggests existing sales are being shifted to new opportunities.
+- Competitors may respond by matching wholesale pricing or increasing their own product offerings.
+- The success of the long-term moat depends on maintaining quality for the new wholesale chain.
 
 ## Recommendation
 Proceed with caution.
 
 ## Open questions
-The exact revenue breakdown by customer segment or product line is unknown, preventing precise cannibalization modeling.
-The cost implications of scaling up production to meet the 2800 new demand volume are not quantified against current capacity.
+What is the projected revenue impact from the 2,800 loaves/month wholesale demand?
+How will the price change affect the size and behavior of the loyal retail segment?
+What is the expected response from competitors to this new wholesale contract?

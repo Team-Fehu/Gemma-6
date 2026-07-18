@@ -118,11 +118,17 @@ async function handleResponse<T>(response: Response): Promise<T> {
 const DEFAULT_TIMEOUT_MS = 8000;
 const GENERATION_TIMEOUT_MS = 180000;
 
-async function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit = {}, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<Response> {
+// In local dev, Vite proxies relative /api calls to localhost:8000 (see
+// vite.config.ts) so this stays empty. In production (e.g. the frontend on
+// Vercel, backend on a self-hosted tunnel) there's no such proxy, so builds
+// need VITE_API_BASE_URL set to the backend's public origin.
+const API_BASE = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '');
+
+async function fetchWithTimeout(path: string, init: RequestInit = {}, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<Response> {
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
   try {
-    return await fetch(input, { ...init, signal: controller.signal });
+    return await fetch(`${API_BASE}${path}`, { ...init, signal: controller.signal });
   } finally {
     window.clearTimeout(timeout);
   }

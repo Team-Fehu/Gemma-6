@@ -1,4 +1,5 @@
 """FastAPI routes. Matches CONTRACT.md exactly."""
+import os
 import uuid
 
 from fastapi import FastAPI
@@ -15,9 +16,15 @@ from gemma_runner import BusyError, gemma_runner
 
 app = FastAPI(title="GEMMA-6 backend")
 
+# There's no auth on this API, so with a wildcard origin any website a
+# browser visits could call it directly (burning your local Ollama compute,
+# or reading back report content). Set CORS_ALLOWED_ORIGINS to your deployed
+# frontend's exact origin(s), comma-separated, once this is reachable from
+# the internet. Defaults to "*" for local dev convenience.
+_allowed_origins = os.environ.get("CORS_ALLOWED_ORIGINS", "*")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[o.strip() for o in _allowed_origins.split(",")],
     allow_methods=["*"],
     allow_headers=["*"],
 )

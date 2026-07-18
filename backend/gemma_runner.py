@@ -15,7 +15,8 @@ OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
 MODEL_NAME = os.environ.get("GEMMA_MODEL", "gemma3:4b")
 MAX_TOOL_STEPS = 5
 
-TOOL_CALL_RE = re.compile(r"```tool_call\s*(\{.*?\})\s*```", re.DOTALL)
+TOOL_CALL_RE = re.compile(r"```tool_call\s*(.*?)\s*```", re.DOTALL)
+BARE_CALL_RE = re.compile(r"^(\w+)\s*(\{.*\})$", re.DOTALL)
 
 _MALFORMED = object()
 
@@ -53,10 +54,22 @@ class GemmaRunner:
         match = TOOL_CALL_RE.search(text)
         if not match:
             return None
+        body = match.group(1).strip()
         try:
-            return json.loads(match.group(1))
+            return json.loads(body)
         except json.JSONDecodeError:
-            return _MALFORMED
+            pass
+        # Small local models sometimes write `tool_name{"arg": ...}` instead of
+        # the {"name": ..., "args": ...} envelope. Recover it instead of letting
+        # the raw call leak into the final report.
+        bare = BARE_CALL_RE.match(body)
+        if bare:
+            try:
+                args = json.loads(bare.group(2))
+            except json.JSONDecodeError:
+                return _MALFORMED
+            return {"name": bare.group(1), "args": args}
+        return _MALFORMED
 
     async def run(
         self,
