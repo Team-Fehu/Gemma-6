@@ -129,9 +129,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   };
 
   const getAdvisorState = (id: string): 'idle' | 'running' | 'done' | 'error' => {
+    const pipelineId = id === 'overview' ? 'front_desk' : id;
     if (status.error) return 'error';
-    if (status.completed.includes(id)) return 'done';
-    if (status.current_advisor === id) return 'running';
+    if (status.completed.includes(pipelineId)) return 'done';
+    if (status.current_advisor === pipelineId) return 'running';
     return 'idle';
   };
 
@@ -186,19 +187,60 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </form>
           </section>
 
-          <section>
-            <div className="flex items-center justify-between mb-5">
-              <div><p className="text-[10px] font-semibold text-gray-500 uppercase tracking-[.2em] mb-1">Specialist team</p><h2 className="text-xl font-semibold">Six focused perspectives</h2></div>
-              {status.current_advisor && <span className="live-pill">{status.current_advisor} is thinking</span>}
+          <section className="mb-12" aria-labelledby="workflow-title">
+            <div className="mb-5">
+              <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-[.2em] mb-1">How the analysis works</p>
+              <h2 id="workflow-title" className="text-xl font-semibold mb-2">From one decision to an auditable recommendation</h2>
+              <p className="text-sm leading-6 text-gray-500 max-w-2xl">Each specialist receives the same business context but stays inside its own domain. Calculators handle the numbers, reports preserve the evidence, and the Front Desk combines the findings.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {advisorIds.map((id) => <AdvisorCard key={id} id={id} name={ADVISOR_DISPLAY_NAMES[id]} icon="💼" state={getAdvisorState(id)} onClick={() => getAdvisorState(id) === 'done' && onSelectAdvisor(id, ADVISOR_DISPLAY_NAMES[id])} />)}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+              <div className="workflow-step rounded-2xl border border-white/[0.08] p-5">
+                <span className="text-xs font-mono text-purple-300">01</span>
+                <h3 className="font-semibold mt-3 mb-2">Provide the decision</h3>
+                <p className="text-xs leading-5 text-gray-500">Choose a preset or enter a specific decision with the revenue, customer, supplier, and operations data behind it.</p>
+              </div>
+              <div className="workflow-step rounded-2xl border border-white/[0.08] p-5">
+                <span className="text-xs font-mono text-cyan-300">02</span>
+                <h3 className="font-semibold mt-3 mb-2">Six advisors calculate</h3>
+                <p className="text-xs leading-5 text-gray-500">The model works sequentially. Deterministic tools calculate margins, forecasts, cash timing, capacity, and exposure.</p>
+              </div>
+              <div className="workflow-step rounded-2xl border border-white/[0.08] p-5">
+                <span className="text-xs font-mono text-emerald-300">03</span>
+                <h3 className="font-semibold mt-3 mb-2">Review and ask follow-ups</h3>
+                <p className="text-xs leading-5 text-gray-500">Open each completed report, inspect formulas and risks, then chat with that advisor using the report as context.</p>
+              </div>
             </div>
           </section>
 
-          <section className="mt-10 pb-10">
-            <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-[.2em] mb-4">Integrated recommendation</p>
-            <AdvisorCard id="overview" name={ADVISOR_DISPLAY_NAMES.overview} icon="🎯" state={getAdvisorState('overview')} onClick={() => getAdvisorState('overview') === 'done' && onSelectAdvisor('overview', ADVISOR_DISPLAY_NAMES.overview)} />
+          <section>
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+              <div>
+                <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-[.2em] mb-1">Specialist team</p>
+                <h2 className="text-xl font-semibold mb-2">Six focused perspectives</h2>
+                <p className="text-sm text-gray-500">Every card explains the advisor's scope, checks, and expected report.</p>
+              </div>
+              {status.current_advisor && <span className="live-pill">{status.current_advisor} is thinking</span>}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {advisorIds.map((id) => (
+                <AdvisorCard
+                  key={id}
+                  id={id}
+                  name={ADVISOR_DISPLAY_NAMES[id]}
+                  state={getAdvisorState(id)}
+                  onClick={() => getAdvisorState(id) === 'done' && onSelectAdvisor(id, ADVISOR_DISPLAY_NAMES[id])}
+                />
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-12 pb-10">
+            <div className="mb-5">
+              <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-[.2em] mb-1">Integrated recommendation</p>
+              <h2 className="text-xl font-semibold mb-2">The Front Desk connects the evidence</h2>
+              <p className="text-sm leading-6 text-gray-500 max-w-2xl">After all specialists finish, the Front Desk names what each one found, highlights disagreements instead of hiding them, and turns the combined evidence into concrete next steps.</p>
+            </div>
+            <AdvisorCard id="overview" name={ADVISOR_DISPLAY_NAMES.overview} state={getAdvisorState('overview')} onClick={() => getAdvisorState('overview') === 'done' && onSelectAdvisor('overview', ADVISOR_DISPLAY_NAMES.overview)} />
           </section>
         </div>
       </div>

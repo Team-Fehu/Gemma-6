@@ -38,11 +38,16 @@
 .dashboard-hero { padding: 34px; border-radius: 24px; }
 .pipeline { position: relative; height: 2px; overflow: hidden; background: rgba(255,255,255,.08); }
 .pipeline > span { display: block; height: 100%; background: linear-gradient(90deg, #7c3aed, #22d3ee); box-shadow: 0 0 15px #8b5cf6; animation: progress 2.4s ease-out both; }
-.advisor-card { position: relative; overflow: hidden; min-height: 142px; background: linear-gradient(145deg, rgba(255,255,255,.065), rgba(255,255,255,.018)); }
+.advisor-card { position: relative; overflow: hidden; min-height: 290px; background: linear-gradient(145deg, rgba(255,255,255,.065), rgba(255,255,255,.018)); }
 .advisor-card::before { content: ''; position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 0 0, rgba(139,92,246,.23), transparent 58%); transition: opacity .3s ease; }
 .advisor-card:hover::before, .advisor-card.state-running::before { opacity: 1; }
 .advisor-card.state-running { border-color: rgba(139,92,246,.55); animation: float 4s ease-in-out infinite; }
+.advisor-card-overview { min-height: 250px; background: radial-gradient(circle at 85% 20%, rgba(34,211,238,.1), transparent 35%), linear-gradient(145deg, rgba(139,92,246,.1), rgba(255,255,255,.018)); }
 .advisor-icon { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.1); border-radius: 15px; background: rgba(255,255,255,.06); box-shadow: inset 0 1px rgba(255,255,255,.08); }
+.advisor-tag { border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.035); }
+.workflow-step { position: relative; background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.015)); }
+.workflow-step:not(:last-child)::after { content: '→'; position: absolute; right: -22px; top: 50%; color: rgba(196,181,253,.45); font-size: 18px; }
+@media (max-width: 767px) { .workflow-step:not(:last-child)::after { content: '↓'; right: auto; top: auto; bottom: -27px; left: 50%; } }
 .chat-shell { background: rgba(5,5,11,.52); }
 .message-bubble { animation: slideInFromTop .25s ease-out both; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
 .report-panel { background: linear-gradient(160deg, rgba(139,92,246,.06), rgba(255,255,255,.015)); }
