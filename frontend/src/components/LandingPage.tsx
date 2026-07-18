@@ -79,24 +79,35 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
 
   return (
     <div className="landing-page min-h-screen text-white overflow-y-auto">
-      <header className="site-nav border-b sticky top-0 z-30 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <span className="brand-mark w-8 h-8 rounded-xl" aria-hidden="true" />
-            <span className="text-sm font-bold tracking-[0.16em]">GEMMA-6</span>
-          </div>
-          <nav className="hidden md:flex items-center gap-9 text-xs uppercase tracking-[0.16em] text-gray-500">
-            <a href="#how-it-works" className="hover:text-purple-300 transition-colors">Product</a>
-            <a href="#advisors" className="hover:text-purple-300 transition-colors">Advisors</a>
-            <a href="#grounding" className="hover:text-cyan-300 transition-colors">Grounding</a>
+      <header className="landing-header sticky top-0 z-30 px-4 md:px-6 py-3">
+        <div className="nav-command max-w-7xl mx-auto flex items-center justify-between gap-4 px-3 md:px-4 py-2.5">
+          <a href="#top" className="nav-brand group flex items-center gap-3 shrink-0" aria-label="GEMMA-6 home">
+            <span className="brand-emblem" aria-hidden="true"><span>G</span></span>
+            <span>
+              <span className="flex items-center gap-2 text-sm font-bold tracking-[0.16em] text-white">GEMMA-6 <span className="brand-version">LOCAL</span></span>
+              <span className="hidden sm:block text-[9px] uppercase tracking-[0.22em] text-gray-500 group-hover:text-purple-300 transition-colors">Six minds · One model</span>
+            </span>
+          </a>
+
+          <nav className="nav-switch hidden md:flex" aria-label="Page sections">
+            <a href="#how-it-works" className="nav-switch-item"><span className="nav-item-icon">◈</span> How it works</a>
+            <a href="#advisors" className="nav-switch-item"><span className="nav-item-icon">✦</span> Advisors</a>
+            <a href="#grounding" className="nav-switch-item"><span className="nav-item-icon">⌁</span> Grounding</a>
           </nav>
-          <button onClick={onGetStarted} className="primary-button px-5 py-2.5 text-sm font-semibold rounded-xl">
-            Open workspace
-          </button>
+
+          <div className="flex items-center gap-2 md:gap-3 shrink-0">
+            <div className="model-chip hidden lg:flex">
+              <span className="model-orb" aria-hidden="true" />
+              <span><strong>Gemma 3</strong><small>4B · Local</small></span>
+            </div>
+            <button onClick={onGetStarted} className="nav-action">
+              <span className="hidden sm:inline">Open workspace</span><span className="sm:hidden">Open</span><span>↗</span>
+            </button>
+          </div>
         </div>
       </header>
 
-      <main>
+      <main id="top">
         <section className="hero-zone relative px-6 py-20 text-center overflow-hidden">
           <span className="hero-glow one" aria-hidden="true" />
           <span className="hero-glow two" aria-hidden="true" />
