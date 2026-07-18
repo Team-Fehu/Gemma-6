@@ -1,29 +1,29 @@
 # Pricing Advisor Report
 
 ## Verdict
-caution
+avoid.
 
 ## Summary
-Raising the price of the sourdough loaf by 10% is projected to increase demand by 6.5%, leading to a revenue increase of $857.5. However, the price-sensitive segment will experience a significant churn. The loyal segment will remain relatively stable.
+Insufficient data is available to calculate price elasticity or customer impact. Key metrics such as current price, unit cost, and base demand are missing. Therefore, no reliable projection regarding demand change can be made.
 
 ## Key findings
-- New demand is estimated at 1065 units.
-- The price-sensitive segment will experience a churn of 65 units.
-- The loyal segment will retain 100 units.
-- The new segment will retain 35 units.
+- Current pricing information is missing.
+- Base demand figures are missing.
+- Price elasticity data is missing.
+- Customer segmentation data is missing.
 
 ## Numbers
-- Current monthly revenue: 85000
-- New demand: 1065
-- Revenue change: 857.5
-- Price sensitivity (price-sensitive): 0.65
-- Churned units (price-sensitive): 65
-- Loyal segment retained: 100
-- New segment retained: 35
+No numbers were available for calculation.
 
 ## Risks
-- Demand reduction in the price-sensitive segment could offset revenue gains.
-- The 6.5% demand increase may be an overestimation.
+The risk of unknown demand shift cannot be quantified.
 
 ## Recommendation
-Conduct further analysis on the price-sensitive segment.
+Do not proceed with the price increase without further data.
+
+## Open questions
+What is the current price of the sourdough loaf?
+What is the unit cost of the sourdough loaf?
+What is the base demand for the sourdough loaf?
+What is the price elasticity for this product?
+Do we have segment definitions (price-sensitive vs loyal)?

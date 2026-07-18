@@ -17,6 +17,8 @@ MAX_TOOL_STEPS = 5
 
 TOOL_CALL_RE = re.compile(r"```tool_call\s*(\{.*?\})\s*```", re.DOTALL)
 
+_MALFORMED = object()
+
 
 @dataclass
 class BusyError(Exception):
@@ -39,7 +41,7 @@ class GemmaRunner:
             "model": MODEL_NAME,
             "messages": [{"role": "system", "content": system_prompt}] + messages,
             "stream": False,
-            "options": {"temperature": 0.3},
+            "options": {"temperature": 0.3, "num_predict": 2000},
         }
         resp = await self._client.post(f"{OLLAMA_HOST}/api/chat", json=payload)
         resp.raise_for_status()
@@ -47,14 +49,14 @@ class GemmaRunner:
         return data["message"]["content"]
 
     @staticmethod
-    def _extract_tool_call(text: str) -> dict | None:
+    def _extract_tool_call(text: str):
         match = TOOL_CALL_RE.search(text)
         if not match:
             return None
         try:
             return json.loads(match.group(1))
         except json.JSONDecodeError:
-            return None
+            return _MALFORMED
 
     async def run(
         self,
@@ -78,13 +80,30 @@ class GemmaRunner:
         else:
             return await self._run_locked(system_prompt, messages, tool_registry, allowed_tools, tool_log)
 
+    @staticmethod
+    def _fallback_report(tool_log: list | None) -> str:
+        if not tool_log:
+            return "_The model did not produce a report for this advisor._"
+        lines = ["_The model did not write a final summary in time. Grounded tool results gathered:_", ""]
+        for entry in tool_log:
+            lines.append(f"- **{entry['tool']}**({entry['args']}) → {entry['result']}")
+        return "\n".join(lines)
+
     async def _run_locked(self, system_prompt, messages, tool_registry, allowed_tools, tool_log):
         convo = list(messages)
         for _step in range(MAX_TOOL_STEPS):
             text = await self._generate(system_prompt, convo)
             call = self._extract_tool_call(text) if tool_registry else None
-            if not call:
-                return text
+            if call is None:
+                return text.strip() or self._fallback_report(tool_log)
+            if call is _MALFORMED:
+                convo.append({"role": "assistant", "content": text})
+                convo.append({
+                    "role": "user",
+                    "content": '```tool_result\n{"error": "your last tool_call was not valid JSON '
+                    '(use double-quoted keys and string values). Retry the tool_call or write your final report."}\n```',
+                })
+                continue
 
             name = call.get("name")
             args = call.get("args", {})
@@ -109,6 +128,9 @@ class GemmaRunner:
             system_prompt + "\n\nYou have used all your tool calls. Write your final report now using only what you already know.",
             convo,
         )
+        forced = forced.strip()
+        if not forced or TOOL_CALL_RE.search(forced):
+            return self._fallback_report(tool_log)
         return forced
 
 
