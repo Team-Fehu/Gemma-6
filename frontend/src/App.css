@@ -15,10 +15,9 @@
 .nav-command { position: relative; min-height: 64px; border: 1px solid rgba(255,255,255,.1); border-radius: 19px; background: linear-gradient(110deg, rgba(255,255,255,.065), rgba(255,255,255,.022)); box-shadow: 0 14px 45px rgba(0,0,0,.36), inset 0 1px rgba(255,255,255,.08); backdrop-filter: blur(22px); }
 .nav-command::before { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(circle at 5% 0%, rgba(139,92,246,.12), transparent 28%), radial-gradient(circle at 95% 100%, rgba(34,211,238,.07), transparent 24%); }
 .nav-brand, .nav-switch, .model-chip, .nav-action { position: relative; z-index: 1; }
-.brand-emblem { display: grid; place-items: center; position: relative; width: 42px; height: 42px; border-radius: 14px; background: conic-gradient(from 210deg, #22d3ee, #7c3aed 40%, #d946ef 72%, #22d3ee); box-shadow: 0 0 28px rgba(139,92,246,.35); transition: .3s ease; }
-.brand-emblem::before { content: ''; position: absolute; inset: 2px; border-radius: 12px; background: linear-gradient(145deg, #17142b, #08070f); }
-.brand-emblem span { position: relative; color: #ddd6fe; font-family: var(--serif); font-size: 20px; font-weight: 600; }
-.nav-brand:hover .brand-emblem { transform: rotate(-6deg) scale(1.04); box-shadow: 0 0 36px rgba(139,92,246,.55); }
+.brand-emblem { display: grid; place-items: center; position: relative; width: 42px; height: 42px; padding: 5px; overflow: hidden; border: 1px solid rgba(167,139,250,.28); border-radius: 14px; background: linear-gradient(145deg,rgba(124,58,237,.16),rgba(8,145,178,.08)); box-shadow: 0 0 28px rgba(139,92,246,.28), inset 0 1px rgba(255,255,255,.08); transition: .3s ease; }
+.brand-emblem img { position: relative; z-index: 1; display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 8px; }
+.nav-brand:hover .brand-emblem { transform: translateY(-1px) scale(1.04); border-color: rgba(34,211,238,.38); box-shadow: 0 0 36px rgba(139,92,246,.45); }
 .brand-version { padding: 2px 5px; border: 1px solid rgba(34,211,238,.2); border-radius: 5px; color: #67e8f9; background: rgba(34,211,238,.06); font: 7px/1 var(--mono); letter-spacing: .12em; }
 .nav-switch { align-items: center; gap: 3px; padding: 4px; border: 1px solid rgba(255,255,255,.07); border-radius: 13px; background: rgba(0,0,0,.22); }
 .nav-switch-item { display: flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 13px; border-radius: 9px; color: #777386; font-size: 11px; font-weight: 600; transition: .2s ease; }
@@ -177,8 +176,7 @@
 @media (max-width: 560px) {
   .app-header,.landing-header { padding-left: 8px !important; padding-right: 8px !important; }
   .nav-command { min-height: 56px; border-radius: 15px; }
-  .brand-emblem { width: 36px; height: 36px; border-radius: 11px; }
-  .brand-emblem::before { border-radius: 9px; }
+  .brand-emblem { width: 36px; height: 36px; padding: 4px; border-radius: 11px; }
   .decision-header { min-height: 78px; padding: 13px 14px; }
   .decision-avatar { width: 40px; height: 40px; border-radius: 12px; }
   .decision-header h1 { font-size: 16px; }

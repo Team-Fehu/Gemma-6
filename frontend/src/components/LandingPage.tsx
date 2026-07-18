@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../assets/logo.png';
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -82,7 +83,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       <header className="landing-header sticky top-0 z-30 px-4 md:px-6 py-3">
         <div className="nav-command max-w-7xl mx-auto flex items-center justify-between gap-4 px-3 md:px-4 py-2.5">
           <a href="#top" className="nav-brand group flex items-center gap-3 shrink-0" aria-label="GEMMA-6 home">
-            <span className="brand-emblem" aria-hidden="true"><span>G</span></span>
+            <span className="brand-emblem" aria-hidden="true">
+              <img src={logo} alt="" />
+            </span>
             <span>
               <span className="flex items-center gap-2 text-sm font-bold tracking-[0.16em] text-white">GEMMA-6 <span className="brand-version">LOCAL</span></span>
               <span className="hidden sm:block text-[9px] uppercase tracking-[0.22em] text-gray-500 group-hover:text-purple-300 transition-colors">Six minds · One model</span>

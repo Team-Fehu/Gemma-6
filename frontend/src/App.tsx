@@ -4,6 +4,7 @@ import { DashboardView } from './components/DashboardView';
 import { ChatView } from './components/ChatView';
 import { LandingPage } from './components/LandingPage';
 import { getApiMode, subscribeToApiMode } from './lib/api';
+import logo from './assets/logo.png';
 
 function App() {
   const [currentView, setCurrentView] = useState<'landing' | 'dashboard' | 'chat'>('landing');
@@ -31,7 +32,9 @@ function App() {
       <header className="app-header px-4 md:px-7 py-3">
         <div className="nav-command max-w-7xl mx-auto flex items-center justify-between gap-4 px-3 md:px-4 py-2.5">
           <button onClick={() => setCurrentView('landing')} className="nav-brand group flex items-center gap-3 text-left shrink-0" aria-label="Return to GEMMA-6 home">
-            <span className="brand-emblem" aria-hidden="true"><span>G</span></span>
+            <span className="brand-emblem" aria-hidden="true">
+              <img src={logo} alt="" />
+            </span>
             <span>
               <span className="flex items-center gap-2 text-sm font-bold tracking-[0.16em] text-white">GEMMA-6 <span className="brand-version">LOCAL</span></span>
               <span className="block text-[9px] uppercase tracking-[0.22em] text-gray-500 group-hover:text-purple-300 transition-colors">Decision intelligence</span>
