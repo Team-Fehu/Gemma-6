@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Which segment is most at risk?"
+  },
+  {
+    "role": "assistant",
+    "content": "The price-sensitive segment is most at risk due to its high price sensitivity of 0.8. This means a small price increase could lead to a large drop in demand from this segment. Let's dig deeper into this. Can you tell me what the average order value is?"
+  }
+]

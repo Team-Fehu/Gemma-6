@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Which segment should I worry about most?"
+  },
+  {
+    "role": "assistant",
+    "content": "The price-sensitive segment is the biggest risk. The price sensitivity of 0.65 means that a 10% price increase will lead to a churn of 65 units, which is a substantial drop in demand. Given their share of revenue (35%), this churn could significantly offset the revenue gains from the overall demand increase. Let\u2019s dig deeper into that segment to see if we can mitigate the risk.\n"
+  }
+]

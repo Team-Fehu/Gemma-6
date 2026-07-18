@@ -1,0 +1,191 @@
+{
+  "examples": [
+    {
+      "id": "bakery",
+      "name": "Neighborhood Bakery",
+      "description": "Small bakery considering a 10% price increase on signature sourdough loaves.",
+      "business_context": {
+        "business": {
+          "name": "Sweet Rise Bakery",
+          "sector": "Food & Beverage",
+          "monthly_revenue": 85000,
+          "unit_cost": 1.50
+        },
+        "customers": [
+          {
+            "segment": "loyal",
+            "share_of_revenue": 0.50,
+            "price_sensitivity": 0.15
+          },
+          {
+            "segment": "price-sensitive",
+            "share_of_revenue": 0.35,
+            "price_sensitivity": 0.65
+          },
+          {
+            "segment": "new",
+            "share_of_revenue": 0.15,
+            "price_sensitivity": 0.35
+          }
+        ],
+        "suppliers": [
+          {
+            "name": "Golden Grain Mills",
+            "share_of_spend": 0.65,
+            "unit_price": 0.85
+          },
+          {
+            "name": "Premium Yeast Co",
+            "share_of_spend": 0.35,
+            "unit_price": 2.10
+          }
+        ],
+        "collections": {
+          "current_dso": 2,
+          "segments": [
+            {
+              "name": "retail_direct",
+              "share": 0.70,
+              "late_probability": 0.01
+            },
+            {
+              "name": "cafe_partners",
+              "share": 0.30,
+              "late_probability": 0.05
+            }
+          ]
+        },
+        "operations": {
+          "current_capacity": 2500,
+          "current_stock": 850,
+          "lead_time_days": 2
+        },
+        "decision": "Raise the price of our signature sourdough loaf by 10%."
+      },
+      "decision": "Raise the price of our signature sourdough loaf by 10%."
+    },
+    {
+      "id": "retail",
+      "name": "Retail Apparel Store",
+      "description": "Small apparel retailer weighing a seasonal clearance discount versus expanding to a second location.",
+      "business_context": {
+        "business": {
+          "name": "Urban Threads",
+          "sector": "Retail Apparel",
+          "monthly_revenue": 120000,
+          "unit_cost": 25.00
+        },
+        "customers": [
+          {
+            "segment": "regular",
+            "share_of_revenue": 0.45,
+            "price_sensitivity": 0.25
+          },
+          {
+            "segment": "bargain-hunters",
+            "share_of_revenue": 0.35,
+            "price_sensitivity": 0.70
+          },
+          {
+            "segment": "seasonal",
+            "share_of_revenue": 0.20,
+            "price_sensitivity": 0.50
+          }
+        ],
+        "suppliers": [
+          {
+            "name": "Global Textiles Ltd",
+            "share_of_spend": 0.55,
+            "unit_price": 24.00
+          },
+          {
+            "name": "Local Craft Brands",
+            "share_of_spend": 0.45,
+            "unit_price": 26.50
+          }
+        ],
+        "collections": {
+          "current_dso": 12,
+          "segments": [
+            {
+              "name": "cash_credit",
+              "share": 0.75,
+              "late_probability": 0.02
+            },
+            {
+              "name": "wholesale_orders",
+              "share": 0.25,
+              "late_probability": 0.08
+            }
+          ]
+        },
+        "operations": {
+          "current_capacity": 800,
+          "current_stock": 320,
+          "lead_time_days": 4
+        },
+        "decision": "Run a 25% seasonal clearance discount on end-of-season inventory."
+      },
+      "decision": "Run a 25% seasonal clearance discount on end-of-season inventory."
+    },
+    {
+      "id": "manufacturer",
+      "name": "Small Manufacturer",
+      "description": "Parts manufacturer facing supplier concentration risk and deciding whether to onshore production or lock in a large new order.",
+      "business_context": {
+        "business": {
+          "name": "Precision Parts Inc",
+          "sector": "Manufacturing",
+          "monthly_revenue": 200000,
+          "unit_cost": 40.00
+        },
+        "customers": [
+          {
+            "segment": "wholesale",
+            "share_of_revenue": 0.60,
+            "price_sensitivity": 0.20
+          },
+          {
+            "segment": "direct",
+            "share_of_revenue": 0.40,
+            "price_sensitivity": 0.40
+          }
+        ],
+        "suppliers": [
+          {
+            "name": "Asian Steel Corp",
+            "share_of_spend": 0.70,
+            "unit_price": 38.00
+          },
+          {
+            "name": "Domestic Metals Inc",
+            "share_of_spend": 0.30,
+            "unit_price": 42.50
+          }
+        ],
+        "collections": {
+          "current_dso": 38,
+          "segments": [
+            {
+              "name": "wholesale_net30",
+              "share": 0.60,
+              "late_probability": 0.10
+            },
+            {
+              "name": "direct_net15",
+              "share": 0.40,
+              "late_probability": 0.05
+            }
+          ]
+        },
+        "operations": {
+          "current_capacity": 5500,
+          "current_stock": 1200,
+          "lead_time_days": 6
+        },
+        "decision": "Accept a large new 18-month wholesale contract worth 40% of current annual revenue."
+      },
+      "decision": "Accept a large new 18-month wholesale contract worth 40% of current annual revenue."
+    }
+  ]
+}

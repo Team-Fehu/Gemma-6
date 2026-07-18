@@ -1,0 +1,58 @@
+{
+  "business": {
+    "name": "Sweet Rise Bakery",
+    "sector": "Food & Beverage",
+    "monthly_revenue": 85000,
+    "unit_cost": 1.5
+  },
+  "customers": [
+    {
+      "segment": "loyal",
+      "share_of_revenue": 0.5,
+      "price_sensitivity": 0.15
+    },
+    {
+      "segment": "price-sensitive",
+      "share_of_revenue": 0.35,
+      "price_sensitivity": 0.65
+    },
+    {
+      "segment": "new",
+      "share_of_revenue": 0.15,
+      "price_sensitivity": 0.35
+    }
+  ],
+  "suppliers": [
+    {
+      "name": "Golden Grain Mills",
+      "share_of_spend": 0.65,
+      "unit_price": 0.85
+    },
+    {
+      "name": "Premium Yeast Co",
+      "share_of_spend": 0.35,
+      "unit_price": 2.1
+    }
+  ],
+  "collections": {
+    "current_dso": 2,
+    "segments": [
+      {
+        "name": "retail_direct",
+        "share": 0.7,
+        "late_probability": 0.01
+      },
+      {
+        "name": "cafe_partners",
+        "share": 0.3,
+        "late_probability": 0.05
+      }
+    ]
+  },
+  "operations": {
+    "current_capacity": 2500,
+    "current_stock": 850,
+    "lead_time_days": 2
+  },
+  "decision": "Raise the price of our signature sourdough loaf by 10%."
+}

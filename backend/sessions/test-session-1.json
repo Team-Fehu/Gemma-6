@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Which segment is most at risk?"
+  },
+  {
+    "role": "assistant",
+    "content": "Okay, let's dig deeper into which segment is most at risk. I\u2019ll use the segment_churn tool to quantify the potential churn.\n\n```tool_call\n{\"name\": \"segment_churn\", \"args\": {\"segments\": [{\"name\": \"price-sensitive\", \"size\": 8000, \"price_sensitivity\": 0.8}], \"price_change_pct\": 0.1}}\n```"
+  }
+]
