@@ -1,3 +1,4 @@
 ```tool_call
-late_payment_risk({"segments": [{"amount": 50600, "late_probability": 0.02}, {"amount": 41400, "late_probability": 0.12}]})
+estimate_cashflow_impact
+{"current_dso": 30, "segments": [{"share": 1, "pay_delay_shift_days": 0}]}
 ```

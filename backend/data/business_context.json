@@ -1,82 +1,40 @@
 {
   "business": {
-    "name": "Riverside Bakery & Wholesale",
-    "sector": "Food & Beverage",
-    "monthly_revenue": 92000
+    "monthly_revenue": 85000,
+    "unit_cost": 1.5
   },
-  "pricing": {
-    "current_price": 6.5,
-    "unit_cost": 1.65,
-    "base_demand": 14000,
-    "elasticity": -1.8,
-    "segments": [
-      {
-        "name": "loyal_retail",
-        "size": 5600,
-        "price_sensitivity": 0.12
-      },
-      {
-        "name": "price_sensitive_retail",
-        "size": 3500,
-        "price_sensitivity": 0.7
-      },
-      {
-        "name": "new_wholesale_chain",
-        "size": 4900,
-        "price_sensitivity": 0.45
-      }
-    ]
-  },
-  "revenue": {
-    "base_monthly_revenue": 92000,
-    "monthly_growth_rate": 0.02
-  },
-  "suppliers": [
+  "customers": [
     {
-      "name": "Golden Grain Mills",
-      "share_of_spend": 0.68,
-      "current_unit_price": 0.9,
-      "proposed_unit_price": 1.05,
-      "annual_volume": 168000
+      "segment": "loyal",
+      "share_of_revenue": 0.5,
+      "price_sensitivity": 0.15
     },
     {
-      "name": "Local Dairy Co-op",
-      "share_of_spend": 0.32,
-      "current_unit_price": 1.2,
-      "proposed_unit_price": 1.2,
-      "annual_volume": 48000
+      "segment": "price-sensitive",
+      "share_of_revenue": 0.35,
+      "price_sensitivity": 0.65
+    }
+  ],
+  "suppliers": [
+    {
+      "name": "Main Supplier",
+      "share_of_spend": 0.65,
+      "unit_price": 0.85
     }
   ],
   "collections": {
-    "current_dso": 9,
+    "current_dso": 30,
     "segments": [
       {
-        "name": "retail_cash",
-        "share": 0.55,
-        "pay_delay_shift_days": 0,
-        "amount": 50600,
-        "late_probability": 0.02
-      },
-      {
-        "name": "wholesale_net45",
-        "share": 0.45,
-        "pay_delay_shift_days": 20,
-        "amount": 41400,
-        "late_probability": 0.12
+        "name": "retail",
+        "share": 1,
+        "late_probability": 0.05
       }
     ]
   },
   "operations": {
-    "current_capacity": 15000,
-    "projected_demand": 16800,
-    "demand_forecast": 16800,
-    "current_stock": 2200,
-    "safety_stock": 1500,
-    "lead_time_days": 3
-  },
-  "growth": {
-    "new_line_revenue": 32000,
-    "overlap_pct": 0.3,
-    "existing_line_revenue": 92000
+    "current_capacity": 2500,
+    "current_stock": 850,
+    "lead_time_days": 2
   }
 }

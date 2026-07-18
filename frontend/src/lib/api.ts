@@ -4,6 +4,7 @@ import {
   getMockReport,
   getMockReports,
   getMockStatus,
+  resetMockState,
   startMockAnalysis,
 } from './mockData';
 
@@ -29,6 +30,10 @@ export interface StatusResponse {
   completed: string[];
   order: string[];
   error: string | null;
+}
+
+export interface ResetResponse {
+  status: string;
 }
 
 export interface ReportsResponse {
@@ -155,6 +160,13 @@ export const api = {
     return withFallback(
       async () => handleResponse<StatusResponse>(await fetchWithTimeout('/api/status')),
       getMockStatus,
+    );
+  },
+
+  async reset(): Promise<ResetResponse> {
+    return withFallback(
+      async () => handleResponse<ResetResponse>(await fetchWithTimeout('/api/reset', { method: 'POST' })),
+      resetMockState,
     );
   },
 

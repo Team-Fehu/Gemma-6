@@ -131,6 +131,23 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
     }
   };
 
+  const handleReset = async () => {
+    if (status.state === 'running') {
+      setToast('Wait for the current run to finish before resetting.');
+      setTimeout(() => setToast(null), 3000);
+      return;
+    }
+    if (!window.confirm('Clear the current results? This deletes all generated reports.')) return;
+    try {
+      await api.reset();
+      setStatus({ state: 'idle', run_id: '', current_advisor: null, completed: [], order: [], error: null });
+    } catch (error) {
+      console.error('Reset error:', error);
+      setToast('Failed to reset. Please try again.');
+      setTimeout(() => setToast(null), 3000);
+    }
+  };
+
   const getAdvisorState = (id: string): 'idle' | 'running' | 'done' | 'error' => {
     const pipelineId = id === 'overview' ? 'front_desk' : id;
     if (status.error) return 'error';
@@ -167,6 +184,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <div className="flex justify-between text-[10px] uppercase tracking-wider mb-3"><span className="text-gray-500">Pipeline</span><span className={status.state === 'running' ? 'text-purple-300' : 'text-gray-400'}>{status.state}</span></div>
               <div className="pipeline rounded-full"><span style={{ width: `${progress}%` }} /></div>
               <p className="text-xs text-gray-600 mt-2">{status.completed.length} of 7 stages complete</p>
+              {status.state !== 'idle' && status.state !== 'running' && (
+                <button type="button" onClick={handleReset} className="mt-3 text-[10px] uppercase tracking-wider text-gray-500 hover:text-red-300 transition-colors">
+                  Reset results →
+                </button>
+              )}
             </div>
           </div>
 

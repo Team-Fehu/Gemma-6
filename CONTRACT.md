@@ -50,6 +50,24 @@ Frontend uses `completed` to light up cards, `current_advisor` to show the "thin
 
 ---
 
+## POST /api/reset
+
+Clears the run state back to `idle` and deletes all reports, tool logs, chat sessions, and the last saved business context/decision on disk.
+
+`RunState` is a single process-wide singleton, not scoped per browser session — without this endpoint, a finished run stays visible as "done" (including the Front Desk card) to any later visit or reload until the next `/api/analyze` call, even though nothing has been submitted in that session.
+
+**Response `200`**
+```json
+{ "status": "ok" }
+```
+
+**Response `409`** (a run is in progress)
+```json
+{ "status": "busy", "message": "Advisors are still thinking. Wait for the run to finish before resetting." }
+```
+
+---
+
 ## GET /api/reports
 
 All reports, for the notes panel and the dashboard summary.

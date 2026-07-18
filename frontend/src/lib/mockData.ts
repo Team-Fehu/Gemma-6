@@ -5,6 +5,7 @@ import type {
   Example,
   ReportResponse,
   ReportsResponse,
+  ResetResponse,
   StatusResponse,
 } from './api';
 
@@ -148,6 +149,13 @@ export function startMockAnalysis(data: AnalyzeRequest): AnalyzeResponse {
   const runId = `mock_${crypto.randomUUID().slice(0, 8)}`;
   mockStatus = { state: 'running', run_id: runId, current_advisor: MOCK_ORDER[0], completed: [], order: MOCK_ORDER, error: null };
   return { run_id: runId, status: 'started' };
+}
+
+export function resetMockState(): ResetResponse {
+  mockStatus = { state: 'idle', run_id: '', current_advisor: null, completed: [], order: MOCK_ORDER, error: null };
+  runStartedAt = 0;
+  lastRequest = null;
+  return { status: 'ok' };
 }
 
 export function getMockStatus(): StatusResponse {

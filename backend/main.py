@@ -50,6 +50,15 @@ async def status():
     return orchestrator.run_state.to_dict()
 
 
+@app.post("/api/reset")
+async def reset():
+    if orchestrator.run_state.state == "running":
+        return JSONResponse(status_code=409, content={"status": "busy", "message": "Advisors are still thinking. Wait for the run to finish before resetting."})
+    orchestrator.run_state.reset()
+    store.clear_all()
+    return {"status": "ok"}
+
+
 @app.get("/api/reports")
 async def reports():
     return store.read_all_reports()

@@ -71,3 +71,18 @@ def load_examples() -> dict:
     if not path.exists():
         return {"examples": []}
     return json.loads(path.read_text())
+
+
+def clear_all() -> None:
+    """Wipes reports, tool logs, chat sessions, and the last run's input.
+
+    Used by /api/reset so a fresh visit doesn't inherit a previous run's
+    finished state (RunState is a single process-wide singleton, not
+    scoped per browser session).
+    """
+    for path in REPORTS_DIR.glob("*"):
+        path.unlink()
+    for path in SESSIONS_DIR.glob("*"):
+        path.unlink()
+    BUSINESS_CONTEXT_PATH.unlink(missing_ok=True)
+    DECISION_PATH.unlink(missing_ok=True)

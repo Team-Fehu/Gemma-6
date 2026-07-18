@@ -1,3 +1,3 @@
 ```tool_call
-price_elasticity_impact{"current_price": 6.5, "new_price": 7.67, "base_demand": 14000, "elasticity": -1.8}
+segment_churn{segments:[{name:<|"|>loyal<|"|>,size:0.5,price_sensitivity:0.15},{name:<|"|>price-sensitive<|"|>,size:0.35,price_sensitivity:0.65}],price_change_pct:18}
 ```

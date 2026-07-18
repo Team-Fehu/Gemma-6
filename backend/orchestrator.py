@@ -30,6 +30,13 @@ class RunState:
             "error": self.error,
         }
 
+    def reset(self):
+        self.state = "idle"
+        self.run_id = None
+        self.current_advisor = None
+        self.completed = []
+        self.error = None
+
 
 run_state = RunState()
 
