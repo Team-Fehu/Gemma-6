@@ -1,0 +1,9 @@
+customer_id,customer_segment,payment_terms,current_amount,days_1_30,days_31_60,days_61_90,days_over_90,total_outstanding
+CUST-001,Cafe Partner,Net 15,4200.00,850.00,0.00,0.00,0.00,5050.00
+CUST-002,Restaurant,Net 30,6800.00,1200.00,350.00,0.00,0.00,8350.00
+CUST-003,Local Grocer,Net 30,5100.00,900.00,0.00,0.00,0.00,6000.00
+CUST-004,Hotel,Net 30,7400.00,2100.00,800.00,250.00,0.00,10550.00
+CUST-005,Corporate Catering,Net 15,3600.00,450.00,0.00,0.00,0.00,4050.00
+CUST-006,Cafe Partner,Net 15,2900.00,700.00,225.00,0.00,0.00,3825.00
+CUST-007,Wholesale Distributor,Net 45,9200.00,3100.00,1450.00,600.00,300.00,14650.00
+CUST-008,Event Venue,Net 30,4700.00,1350.00,400.00,0.00,0.00,6450.00

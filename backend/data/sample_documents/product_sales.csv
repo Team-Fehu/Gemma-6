@@ -1,0 +1,25 @@
+month,product_sku,product_name,channel,units_sold,unit_price,discounts,returns,net_sales
+2026-01,SOUR-01,Signature Sourdough,Retail,4500,6.00,600.00,180.00,26220.00
+2026-01,BAG-01,Seeded Baguette,Retail,3200,3.50,280.00,70.00,10850.00
+2026-01,CRO-01,Butter Croissant,Retail,2800,4.25,300.00,128.00,11472.00
+2026-01,MUF-01,Blueberry Muffin,Retail,2100,3.75,190.00,75.00,7610.00
+2026-02,SOUR-01,Signature Sourdough,Retail,4620,6.00,620.00,192.00,26908.00
+2026-02,BAG-01,Seeded Baguette,Retail,3290,3.50,295.00,74.00,11146.00
+2026-02,CRO-01,Butter Croissant,Retail,2875,4.25,315.00,136.00,11767.75
+2026-02,MUF-01,Blueberry Muffin,Retail,2180,3.75,205.00,82.00,7888.00
+2026-03,SOUR-01,Signature Sourdough,Retail,4750,6.00,655.00,198.00,27647.00
+2026-03,BAG-01,Seeded Baguette,Retail,3380,3.50,310.00,78.00,11442.00
+2026-03,CRO-01,Butter Croissant,Retail,2960,4.25,330.00,141.00,12109.00
+2026-03,MUF-01,Blueberry Muffin,Retail,2240,3.75,215.00,86.00,8099.00
+2026-04,SOUR-01,Signature Sourdough,Retail,4810,6.00,670.00,204.00,27986.00
+2026-04,BAG-01,Seeded Baguette,Retail,3425,3.50,318.00,81.00,11588.50
+2026-04,CRO-01,Butter Croissant,Retail,3010,4.25,342.00,145.00,12305.50
+2026-04,MUF-01,Blueberry Muffin,Retail,2295,3.75,222.00,90.00,8294.25
+2026-05,SOUR-01,Signature Sourdough,Retail,4930,6.00,690.00,210.00,28680.00
+2026-05,BAG-01,Seeded Baguette,Retail,3510,3.50,325.00,84.00,11876.00
+2026-05,CRO-01,Butter Croissant,Retail,3090,4.25,350.00,149.00,12633.50
+2026-05,MUF-01,Blueberry Muffin,Retail,2360,3.75,230.00,94.00,8526.00
+2026-06,SOUR-01,Signature Sourdough,Retail,5050,6.00,710.00,216.00,29374.00
+2026-06,BAG-01,Seeded Baguette,Retail,3590,3.50,335.00,87.00,12143.00
+2026-06,CRO-01,Butter Croissant,Retail,3160,4.25,365.00,153.00,12912.00
+2026-06,MUF-01,Blueberry Muffin,Retail,2425,3.75,240.00,98.00,8755.75

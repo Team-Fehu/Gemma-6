@@ -1,0 +1,7 @@
+supplier_id,supplier_name,category,annual_spend,share_of_spend,unit_price,payment_terms,lead_time_days,minimum_order_quantity
+SUP-001,Golden Grain Mills,Flour,118500.00,0.46,0.85,Net 30,3,500
+SUP-002,Premium Yeast Co,Yeast and cultures,38600.00,0.15,2.10,Net 30,5,100
+SUP-003,Dairy Valley Foods,Butter and dairy,51500.00,0.20,4.35,Net 15,2,120
+SUP-004,Orchard Ingredients,Fruit and fillings,25750.00,0.10,3.80,Net 30,4,80
+SUP-005,PackRight Solutions,Packaging,15450.00,0.06,0.28,Net 45,7,1000
+SUP-006,Local Farm Collective,Eggs and seasonal produce,7725.00,0.03,2.95,Due on receipt,1,60

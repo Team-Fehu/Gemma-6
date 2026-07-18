@@ -1,0 +1,9 @@
+item_sku,item_name,category,unit,current_stock,reorder_point,safety_stock,average_monthly_usage,lead_time_days,unit_cost,storage_capacity
+ING-001,Bread Flour,Ingredient,kg,1850,900,350,4200,3,0.85,3000
+ING-002,Whole Wheat Flour,Ingredient,kg,620,300,120,1450,3,1.05,1000
+ING-003,Butter,Ingredient,kg,280,160,70,920,2,4.35,500
+ING-004,Yeast,Ingredient,kg,95,45,20,210,5,2.10,180
+ING-005,Blueberry Filling,Ingredient,kg,140,75,30,360,4,3.80,250
+PKG-001,Paper Bread Bags,Packaging,units,4200,2200,800,9600,7,0.18,12000
+PKG-002,Pastry Boxes,Packaging,units,1850,1000,400,4100,7,0.42,6000
+FG-001,Finished Sourdough Loaves,Finished goods,units,310,180,100,5050,1,1.50,850
