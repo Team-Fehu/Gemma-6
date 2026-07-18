@@ -107,9 +107,15 @@ async function handleResponse<T>(response: Response): Promise<T> {
   return response.json();
 }
 
-async function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit = {}): Promise<Response> {
+// Gemma runs tool-calling loops synchronously on chat endpoints (up to
+// MAX_TOOL_STEPS Ollama round-trips) — a short timeout there reads as "down"
+// when it's actually just thinking. Status/report reads stay snappy.
+const DEFAULT_TIMEOUT_MS = 8000;
+const GENERATION_TIMEOUT_MS = 180000;
+
+async function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit = {}, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<Response> {
   const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), 3000);
+  const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
   try {
     return await fetch(input, { ...init, signal: controller.signal });
   } finally {
@@ -118,16 +124,16 @@ async function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit = {}
 }
 
 async function withFallback<T>(request: () => Promise<T>, fallback: () => T): Promise<T> {
-  if (apiMode === 'mock') return fallback();
-
   try {
     const result = await request();
     setApiMode('backend');
     return result;
   } catch (error) {
-    // Expected client errors still come from a working backend and must remain visible.
-    if (isApiError(error) && error.status < 500) throw error;
-    console.warn('GEMMA-6 backend unavailable; switching to demo fallback data.', error);
+    // The backend actually responded (even with an error status, e.g. a 503
+    // "advisors are busy") — it's reachable, so surface the real error
+    // instead of masking it as an offline demo fallback.
+    if (isApiError(error)) throw error;
+    console.warn('GEMMA-6 backend unavailable; using demo fallback data for this call.', error);
     setApiMode('mock');
     return fallback();
   }
@@ -172,7 +178,7 @@ export const api = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
-      })),
+      }, GENERATION_TIMEOUT_MS)),
       () => getMockChat(id, data.message),
     );
   },
@@ -183,7 +189,7 @@ export const api = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
-      })),
+      }, GENERATION_TIMEOUT_MS)),
       () => getMockChat('overview', data.message),
     );
   },
