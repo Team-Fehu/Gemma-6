@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { api } from '../lib/api';
-import type { BusinessContext, Example, StatusResponse } from '../lib/api';
+import { api, getApiMode, subscribeToApiMode } from '../lib/api';
+import type { ApiMode, BusinessContext, Example, StatusResponse } from '../lib/api';
 import { AdvisorCard } from './AdvisorCard';
 import { PresetPicker } from './PresetPicker';
 
@@ -36,6 +36,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   });
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  const [apiMode, setApiMode] = useState<ApiMode>(getApiMode());
+
+  useEffect(() => subscribeToApiMode(setApiMode), []);
 
   // Load examples + current backend status on mount (so a refresh mid-run, or
   // returning after reports already exist, reflects real state immediately).
@@ -145,6 +148,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
       <div className="flex-1 overflow-y-auto px-5 md:px-8 py-8 md:py-12">
         <div className="max-w-7xl mx-auto">
+          {apiMode === 'mock' && (
+            <div role="status" className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-amber-400/25 bg-amber-400/[0.07] px-5 py-4 text-amber-100">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[.14em]">Demo fallback active</p>
+                <p className="mt-1 text-xs leading-5 text-amber-100/65">The backend could not be reached. Pipeline progress, reports, and chat are simulated and contain no verified calculations.</p>
+              </div>
+              <span className="shrink-0 rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-1 text-[10px] uppercase tracking-wider">Mock data</span>
+            </div>
+          )}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8">
             <div>
               <p className="text-[10px] uppercase tracking-[.24em] text-purple-300 mb-3">Decision workspace</p>

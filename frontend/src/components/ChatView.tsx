@@ -61,11 +61,23 @@ export const ChatView: React.FC<ChatViewProps> = ({
     loadReport();
   }, [advisorId]);
 
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || loading || !sessionId) return;
+  const isFrontDesk = advisorId === 'overview';
+  const suggestedQuestions = isFrontDesk
+    ? [
+        'What is the strongest reason to proceed?',
+        'Where do the advisors disagree?',
+        'What should I validate before deciding?',
+      ]
+    : [
+        'What is the biggest risk?',
+        'Which assumption matters most?',
+        'What should I do next?',
+      ];
 
-    const userMessage = input.trim();
+  const sendMessage = async (message: string) => {
+    const userMessage = message.trim();
+    if (!userMessage || loading || !sessionId) return;
+
     setInput('');
     setMessages((prev) => [...prev, { role: 'user', content: userMessage }]);
     setLoading(true);
@@ -102,45 +114,90 @@ export const ChatView: React.FC<ChatViewProps> = ({
     }
   };
 
+  const handleSendMessage = (event: React.FormEvent) => {
+    event.preventDefault();
+    void sendMessage(input);
+  };
+
   return (
-    <div className="chat-shell flex-1 flex gap-0 overflow-hidden">
-      <section className="chat-panel flex-1 flex flex-col min-w-0">
-        <div className="border-b border-white/10 bg-black/20 px-5 md:px-7 py-4 flex items-center justify-between">
-          <div><p className="text-[10px] uppercase tracking-[.18em] text-purple-300 mb-1">Advisor conversation</p><h2 className="text-lg font-semibold text-white">{advisorName}</h2></div>
-          <button onClick={onBack} className="px-4 py-2 text-xs rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.09] text-gray-300 transition-colors">← Dashboard</button>
-        </div>
+    <div className={`decision-room flex-1 flex overflow-hidden ${isFrontDesk ? 'front-desk-room' : ''}`}>
+      <section className="conversation-pane flex flex-col min-w-0">
+        <header className="decision-header">
+          <div className="flex items-center gap-4 min-w-0">
+            <div className={`decision-avatar ${isFrontDesk ? 'front-desk-avatar' : ''}`} aria-hidden="true">
+              {isFrontDesk ? 'FD' : 'AI'}
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <p className="decision-eyebrow">{isFrontDesk ? 'Executive synthesis' : 'Specialist review'}</p>
+                <span className="decision-live"><span /> Ready</span>
+              </div>
+              <h1 className="truncate text-xl font-semibold text-white">{advisorName}</h1>
+              <p className="hidden sm:block text-xs text-gray-500 mt-1">
+                {isFrontDesk ? 'Ask across all six specialist reports and surface conflicts.' : 'Ask follow-up questions grounded in this specialist report.'}
+              </p>
+            </div>
+          </div>
+          <button onClick={onBack} className="decision-back">← <span className="hidden sm:inline">Decision workspace</span></button>
+        </header>
 
-        <div className="flex-1 overflow-y-auto px-5 md:px-8 py-6 space-y-5">
+        {isFrontDesk && (
+          <div className="evidence-strip" aria-label="Evidence sources">
+            <span className="evidence-label">Evidence set</span>
+            {['Pricing', 'Revenue', 'Supplier', 'Collections', 'Operations', 'Growth'].map((label) => (
+              <span key={label} className="evidence-chip"><span>✓</span>{label}</span>
+            ))}
+          </div>
+        )}
+
+        <div className="conversation-scroll flex-1 overflow-y-auto px-5 md:px-8 py-7">
           {messages.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-center max-w-sm mx-auto">
-              <div className="visual-core !relative !inset-auto !translate-x-0 !translate-y-0 !w-16 !h-16 mb-5">AI</div>
-              <h3 className="text-xl font-semibold mb-2">Explore the analysis</h3>
-              <p className="text-sm leading-6 text-gray-500">Ask about assumptions, risks, calculations, or what this advisor recommends next.</p>
+            <div className="conversation-welcome">
+              <div className="welcome-symbol" aria-hidden="true">{isFrontDesk ? '✦' : '↗'}</div>
+              <p className="decision-eyebrow mb-2">{isFrontDesk ? 'Decision intelligence' : 'Report intelligence'}</p>
+              <h2>{isFrontDesk ? 'Interrogate the recommendation.' : 'Go deeper on the report.'}</h2>
+              <p>{isFrontDesk ? 'The Front Desk has read every specialist report. Ask it to compare evidence, explain tension, or turn findings into an action plan.' : 'Explore assumptions, calculations, risks, and the advisor’s recommended next move.'}</p>
+              <div className="prompt-grid">
+                {suggestedQuestions.map((question, index) => (
+                  <button key={question} type="button" onClick={() => void sendMessage(question)} disabled={loading || !sessionId}>
+                    <span>0{index + 1}</span>{question}<b>↗</b>
+                  </button>
+                ))}
+              </div>
             </div>
-          ) : messages.map((message, index) => (
-            <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`message-bubble max-w-xs lg:max-w-md xl:max-w-lg px-5 py-3.5 rounded-2xl leading-6 ${message.role === 'user' ? 'bg-gradient-to-br from-purple-600 to-violet-700 text-white rounded-br-md' : message.role === 'system' ? 'bg-amber-500/10 text-amber-200 text-sm border border-amber-500/20' : 'border border-white/10 bg-white/[0.055] text-gray-200 rounded-bl-md'}`}>{message.content}</div>
+          ) : (
+            <div className="message-list">
+              {messages.map((message, index) => (
+                <div key={index} className={`message-row ${message.role}`}>
+                  {message.role !== 'user' && <span className="message-avatar">{message.role === 'system' ? '!' : isFrontDesk ? 'FD' : 'AI'}</span>}
+                  <div>
+                    <p className="message-author">{message.role === 'user' ? 'You' : message.role === 'system' ? 'System' : advisorName}</p>
+                    <div className="message-bubble">{message.content}</div>
+                  </div>
+                </div>
+              ))}
+              {loading && (
+                <div className="message-row assistant">
+                  <span className="message-avatar">{isFrontDesk ? 'FD' : 'AI'}</span>
+                  <div><p className="message-author">{advisorName}</p><div className="message-bubble thinking"><span /><span /><span /></div></div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
-          ))}
-          {loading && <div className="flex justify-start"><div className="message-bubble border border-white/10 bg-white/[0.05] px-5 py-4 rounded-2xl rounded-bl-md"><div className="flex gap-2">{[0,1,2].map((delay) => <span key={delay} className="w-2 h-2 rounded-full bg-purple-300 animate-bounce" style={{ animationDelay: `${delay * 0.12}s` }} />)}</div></div></div>}
-          <div ref={messagesEndRef} />
+          )}
         </div>
 
-        <div className="border-t border-white/10 bg-black/20 px-5 md:px-7 py-5">
-          <form onSubmit={handleSendMessage} className="flex gap-3 glass-panel rounded-2xl p-2">
+        <footer className="composer-zone">
+          <form onSubmit={handleSendMessage} className="decision-composer">
             <label htmlFor="chat-message" className="sr-only">Message {advisorName}</label>
-            <input id="chat-message" type="text" value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask about this analysis…" disabled={loading} className="flex-1 min-w-0 bg-transparent px-3 py-2 text-white placeholder-gray-600 focus:outline-none disabled:opacity-50" />
-            <button type="submit" disabled={loading || !input.trim()} className="primary-button px-5 py-2.5 text-sm text-white font-medium rounded-xl disabled:cursor-not-allowed">Send ↗</button>
+            <input id="chat-message" type="text" value={input} onChange={(event) => setInput(event.target.value)} placeholder={isFrontDesk ? 'Ask the Front Desk to compare, explain, or recommend…' : 'Ask about this specialist analysis…'} disabled={loading} />
+            <button type="submit" disabled={loading || !input.trim()} aria-label="Send message">↗</button>
           </form>
-        </div>
+          <p>Answers are grounded in the generated reports. Verify critical decisions independently.</p>
+        </footer>
       </section>
 
-      {/* Notes Panel */}
-      <NotesPanel
-        markdown={report}
-        loading={reportLoading}
-        title={`${advisorName} Report`}
-      />
+      <NotesPanel markdown={report} loading={reportLoading} title={isFrontDesk ? 'Executive Briefing' : `${advisorName} Report`} executive={isFrontDesk} />
     </div>
   );
 };

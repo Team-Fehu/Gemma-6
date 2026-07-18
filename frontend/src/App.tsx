@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { DashboardView } from './components/DashboardView';
 import { ChatView } from './components/ChatView';
 import { LandingPage } from './components/LandingPage';
+import { getApiMode, subscribeToApiMode } from './lib/api';
 
 function App() {
   const [currentView, setCurrentView] = useState<'landing' | 'dashboard' | 'chat'>('landing');
   const [selectedAdvisor, setSelectedAdvisor] = useState<{ id: string; name: string } | null>(null);
+  const [apiMode, setApiMode] = useState(getApiMode());
+
+  useEffect(() => subscribeToApiMode(setApiMode), []);
 
   const handleSelectAdvisor = (advisorId: string, name: string) => {
     setSelectedAdvisor({ id: advisorId, name });
@@ -46,9 +50,12 @@ function App() {
           </nav>
 
           <div className="flex items-center gap-2 md:gap-3 shrink-0">
-            <div className="model-chip hidden sm:flex">
+            <div className={`model-chip hidden sm:flex ${apiMode === 'mock' ? 'mock-mode' : ''}`}>
               <span className="model-orb" aria-hidden="true" />
-              <span><strong>Gemma 3</strong><small>4B · Ready</small></span>
+              <span>
+                <strong>{apiMode === 'mock' ? 'Demo fallback' : 'Gemma 3'}</strong>
+                <small>{apiMode === 'mock' ? 'Mock data · Offline' : '4B · Ready'}</small>
+              </span>
             </div>
             <button onClick={handleBackToDashboard} className="nav-action" aria-label="Start a new analysis">
               <span className="text-base leading-none">＋</span><span className="hidden sm:inline">New analysis</span>

@@ -117,7 +117,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               One Gemma model · Six specialist perspectives
             </p>
             <h1 className="hero-title-gradient font-serif-display text-5xl sm:text-6xl lg:text-7xl leading-[.98] mb-7">
-              Better decisions,
+              Better Advices,
               <br />grounded in your numbers.
             </h1>
             <p className="text-base md:text-lg leading-8 text-gray-400 max-w-2xl mx-auto mb-9">
