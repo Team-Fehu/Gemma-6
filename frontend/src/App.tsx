@@ -23,20 +23,20 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-black text-white">
-      {/* Header / Navigation */}
-      <header className="border-b border-white/10 bg-black/80 backdrop-blur px-6 py-4">
+    <div className="app-shell flex flex-col h-screen text-white">
+      <header className="site-nav border-b backdrop-blur-xl px-5 md:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <button
-            onClick={() => setCurrentView('landing')}
-            className="text-left"
-          >
-            <h1 className="text-2xl font-bold text-white">GEMMA-6</h1>
-            <p className="text-sm text-gray-400">One model. Six advisors.</p>
+          <button onClick={() => setCurrentView('landing')} className="group flex items-center gap-3 text-left">
+            <span className="brand-mark w-9 h-9 rounded-xl" aria-hidden="true" />
+            <span>
+              <span className="block text-sm font-bold tracking-[0.16em] text-white">GEMMA-6</span>
+              <span className="block text-[10px] uppercase tracking-[0.2em] text-gray-500 group-hover:text-purple-300 transition-colors">Decision intelligence</span>
+            </span>
           </button>
-          <div className="text-sm text-gray-500">
+          <div className="flex items-center gap-3 text-sm text-gray-400">
+            <span className="live-pill">Model ready</span>
             {currentView === 'chat' && selectedAdvisor && (
-              <span>{selectedAdvisor.name}</span>
+              <span className="hidden sm:block border-l border-white/10 pl-3">{selectedAdvisor.name}</span>
             )}
           </div>
         </div>

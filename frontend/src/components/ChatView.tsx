@@ -103,81 +103,37 @@ export const ChatView: React.FC<ChatViewProps> = ({
   };
 
   return (
-    <div className="flex-1 flex gap-0">
-      {/* Chat Panel */}
-      <div className="flex-1 flex flex-col">
-        {/* Header */}
-        <div className="border-b border-white/10 bg-white/5 px-6 py-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-white">{advisorName}</h2>
-          <button
-            onClick={onBack}
-            className="px-3 py-1 text-sm rounded-md bg-white/10 hover:bg-white/20 text-gray-300 transition-colors"
-          >
-            Back
-          </button>
+    <div className="chat-shell flex-1 flex gap-0 overflow-hidden">
+      <section className="chat-panel flex-1 flex flex-col min-w-0">
+        <div className="border-b border-white/10 bg-black/20 px-5 md:px-7 py-4 flex items-center justify-between">
+          <div><p className="text-[10px] uppercase tracking-[.18em] text-purple-300 mb-1">Advisor conversation</p><h2 className="text-lg font-semibold text-white">{advisorName}</h2></div>
+          <button onClick={onBack} className="px-4 py-2 text-xs rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.09] text-gray-300 transition-colors">← Dashboard</button>
         </div>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+        <div className="flex-1 overflow-y-auto px-5 md:px-8 py-6 space-y-5">
           {messages.length === 0 ? (
-            <div className="flex items-center justify-center h-full text-gray-500">
-              <p>Start a conversation about this advisor's analysis.</p>
+            <div className="flex flex-col items-center justify-center h-full text-center max-w-sm mx-auto">
+              <div className="visual-core !relative !inset-auto !translate-x-0 !translate-y-0 !w-16 !h-16 mb-5">AI</div>
+              <h3 className="text-xl font-semibold mb-2">Explore the analysis</h3>
+              <p className="text-sm leading-6 text-gray-500">Ask about assumptions, risks, calculations, or what this advisor recommends next.</p>
             </div>
-          ) : (
-            messages.map((msg, idx) => (
-              <div
-                key={idx}
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-xs lg:max-w-md xl:max-w-lg px-4 py-3 rounded-lg ${
-                    msg.role === 'user'
-                      ? 'bg-accent text-white rounded-br-none'
-                      : msg.role === 'system'
-                      ? 'bg-yellow-500/20 text-yellow-200 text-sm italic border border-yellow-500/30 rounded-lg'
-                      : 'bg-white/10 text-gray-200 rounded-bl-none'
-                  }`}
-                >
-                  {msg.content}
-                </div>
-              </div>
-            ))
-          )}
-          {loading && (
-            <div className="flex justify-start">
-              <div className="bg-white/10 text-gray-200 px-4 py-3 rounded-lg rounded-bl-none">
-                <div className="flex gap-2">
-                  <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" />
-                  <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0.1s' }} />
-                  <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0.2s' }} />
-                </div>
-              </div>
+          ) : messages.map((message, index) => (
+            <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`message-bubble max-w-xs lg:max-w-md xl:max-w-lg px-5 py-3.5 rounded-2xl leading-6 ${message.role === 'user' ? 'bg-gradient-to-br from-purple-600 to-violet-700 text-white rounded-br-md' : message.role === 'system' ? 'bg-amber-500/10 text-amber-200 text-sm border border-amber-500/20' : 'border border-white/10 bg-white/[0.055] text-gray-200 rounded-bl-md'}`}>{message.content}</div>
             </div>
-          )}
+          ))}
+          {loading && <div className="flex justify-start"><div className="message-bubble border border-white/10 bg-white/[0.05] px-5 py-4 rounded-2xl rounded-bl-md"><div className="flex gap-2">{[0,1,2].map((delay) => <span key={delay} className="w-2 h-2 rounded-full bg-purple-300 animate-bounce" style={{ animationDelay: `${delay * 0.12}s` }} />)}</div></div></div>}
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input */}
-        <div className="border-t border-white/10 bg-white/5 px-6 py-4">
-          <form onSubmit={handleSendMessage} className="flex gap-3">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask a question about this analysis..."
-              disabled={loading}
-              className="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/30 transition-colors disabled:opacity-50"
-            />
-            <button
-              type="submit"
-              disabled={loading || !input.trim()}
-              className="px-4 py-2 bg-accent hover:bg-accent-light disabled:bg-gray-600 text-white font-medium rounded-lg transition-colors disabled:cursor-not-allowed"
-            >
-              Send
-            </button>
+        <div className="border-t border-white/10 bg-black/20 px-5 md:px-7 py-5">
+          <form onSubmit={handleSendMessage} className="flex gap-3 glass-panel rounded-2xl p-2">
+            <label htmlFor="chat-message" className="sr-only">Message {advisorName}</label>
+            <input id="chat-message" type="text" value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask about this analysis…" disabled={loading} className="flex-1 min-w-0 bg-transparent px-3 py-2 text-white placeholder-gray-600 focus:outline-none disabled:opacity-50" />
+            <button type="submit" disabled={loading || !input.trim()} className="primary-button px-5 py-2.5 text-sm text-white font-medium rounded-xl disabled:cursor-not-allowed">Send ↗</button>
           </form>
         </div>
-      </div>
+      </section>
 
       {/* Notes Panel */}
       <NotesPanel

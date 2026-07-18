@@ -30,52 +30,25 @@ export const AdvisorCard: React.FC<AdvisorCardProps> = ({
   return (
     <div
       onClick={isClickable ? onClick : undefined}
-      className={`
-        rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02]
-        p-6 transition-all duration-300
-        ${isClickable ? 'cursor-pointer hover:border-accent/50 hover:shadow-lg hover:shadow-accent/20' : 'cursor-default'}
+      className={`advisor-card state-${state}
+        rounded-2xl border border-white/10 p-6 transition-all duration-300
+        ${isClickable ? 'cursor-pointer hover:-translate-y-1 hover:border-purple-400/50 hover:shadow-2xl hover:shadow-purple-950/30' : 'cursor-default'}
         ${state === 'error' ? 'border-red-500/30' : ''}
       `}
       style={{
         boxShadow: state === 'running' ? '0 0 20px rgba(168, 85, 247, 0.3)' : undefined,
       }}
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="text-4xl">{icon}</div>
-          <div className="text-left">
-            <h3 className="text-sm font-semibold text-white">{name}</h3>
-            <p className="text-xs text-gray-400 mt-1">
-              {state === 'idle' && 'Waiting'}
-              {state === 'running' && 'Analyzing'}
-              {state === 'done' && 'Complete'}
-              {state === 'error' && 'Error'}
-            </p>
-          </div>
+      <div className="relative flex flex-col h-full justify-between gap-7">
+        <div className="flex items-start justify-between">
+          <div className="advisor-icon text-xl" aria-hidden="true">{icon}</div>
+          <div className={`w-2.5 h-2.5 rounded-full ${state === 'running' ? 'bg-purple-400 shadow-[0_0_16px_#a78bfa]' : state === 'done' ? 'bg-emerald-400 shadow-[0_0_12px_#34d399]' : state === 'error' ? 'bg-red-400' : 'bg-gray-700'}`} />
         </div>
-
-        <div className="flex items-center gap-2">
-          {state === 'running' && (
-            <div className="relative w-3 h-3">
-              <div
-                className="absolute inset-0 rounded-full bg-accent"
-                style={{
-                  animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                }}
-              />
-            </div>
-          )}
-          {state === 'done' && (
-            <div className="w-3 h-3 rounded-full bg-success flex items-center justify-center text-white text-xs">
-              ✓
-            </div>
-          )}
-          {state === 'idle' && (
-            <div className="w-3 h-3 rounded-full bg-gray-600" />
-          )}
-          {state === 'error' && (
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-          )}
+        <div className="text-left">
+          <div className="flex items-end justify-between gap-3">
+            <div><p className="text-[10px] uppercase tracking-[.18em] text-gray-600 mb-1">{id === 'overview' ? 'Synthesis' : 'Specialist'}</p><h3 className="text-base font-semibold text-white">{name}</h3></div>
+            <span className="text-[10px] uppercase tracking-wider text-gray-500">{state === 'idle' ? 'Queued' : state === 'running' ? 'Thinking' : state === 'done' ? 'Open report →' : 'Error'}</span>
+          </div>
         </div>
       </div>
     </div>

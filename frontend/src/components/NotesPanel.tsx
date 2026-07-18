@@ -14,12 +14,13 @@ export const NotesPanel: React.FC<NotesPanelProps> = ({
   title = 'Report',
 }) => {
   return (
-    <div className="flex-1 flex flex-col bg-white/[0.02] border-l border-white/10 overflow-hidden">
-      <div className="sticky top-0 border-b border-white/10 bg-black/50 px-6 py-4">
+    <aside className="report-panel flex-1 flex flex-col border-l border-white/10 overflow-hidden">
+      <div className="sticky top-0 border-b border-white/10 bg-black/30 px-6 py-4">
+        <p className="text-[10px] uppercase tracking-[.18em] text-cyan-300 mb-1">Grounded output</p>
         <h2 className="text-lg font-semibold text-white">{title}</h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-4">
+      <div className="flex-1 overflow-y-auto px-6 md:px-8 py-5">
         {loading ? (
           <div className="flex items-center justify-center h-full">
             <div className="text-gray-500">Loading report...</div>
@@ -47,6 +48,6 @@ export const NotesPanel: React.FC<NotesPanelProps> = ({
           <div className="text-gray-500 text-center py-8">No report available</div>
         )}
       </div>
-    </div>
+    </aside>
   );
 };
